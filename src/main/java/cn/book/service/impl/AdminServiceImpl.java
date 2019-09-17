@@ -4,6 +4,8 @@ import cn.book.dao.AdminMapper;
 import cn.book.pojo.Admin;
 import cn.book.service.AdminService;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -21,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
             return admin;
         }
         return null;
-       /* ApplicationContext context=new ClassPathXmlApplicationContext("applicationConfig.xml");
+        /*ApplicationContext context=new ClassPathXmlApplicationContext("applicationConfig.xml");
         adminMapper=(AdminMapper)context.getBean("adminMapper");
         return adminMapper.getAdminByName(name);*/
     }
