@@ -39,7 +39,9 @@ public class AdminServiceImpl implements AdminService {
         if (admin != null) {
             System.out.println(admin.getName());
         } else {
-            System.out.println("密码错误！");
+            System.out.println("密码错误！hhh");
         }
     }
+
+
 }
