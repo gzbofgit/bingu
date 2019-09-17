@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.book.dao.BookTypeMapper">
+    <select id="getBookTypeList" resultType="bookType">
+        select *from `booktype` where booktype.typeName like concat('%',#{typeName},'%')
+        <if test="indexPage!=null and pageSize!=null">
+            LIMIT #{indexPage},#{pageSize}
+        </if>
+    </select>
+    <select id="getBootTypeByTypeName" resultType="bookType">
+        select *from booktype where booktype.typeName=#{typeName}
+    </select>
+    <select id="getBootTypeByTypeId" resultType="bookType">
+        select *from booktype where booktype.typeId=#{typeId}
+    </select>
+    <insert id="addBookType" parameterType="bookType">
+        insert into booktype values(null,#{typeName})
+    </insert>
+    <delete id="deleteBookTypeByTypeId">
+        delete from booktype where booktype.typeId=#{typeId}
+    </delete>
+    <update id="updateBookTypeByTypeId">
+        update booktype set booktype.typeName=#{typeName} where booktype.typeId=#{typeId}
+    </update>
+</mapper>

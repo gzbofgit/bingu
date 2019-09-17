@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration><!--配置文件的根元素节点-->
+    <settings>
+        <!--设置Mybatis运行中的一些行为,比如此处设置MyBatis的log日志时限为LOG4J,即使用log4j实现日志功能-->
+        <!--设置resultMap的自动映射级别,FULL为最高级别适用于实体类中有引用数据类型的会自动映射
+        默认为PARTAL,会自动映射实体类的所有属性,resultMap中没配置也会显示,NONE为最低级别
+        如果resultMap中没配置的属性则不会显示-->
+        <setting name="autoMappingBehavior" value="FULL" />
+    </settings>
+
+</configuration>

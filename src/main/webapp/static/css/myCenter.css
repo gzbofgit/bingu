@@ -1,0 +1,73 @@
+* {
+    font-size: 98%;
+}
+
+body {
+    background-image: url("/static/image/top/70729.jpg"); /*背景图片*/
+}
+
+/*标题字体风格样式*/
+#title {
+    font-style: italic;
+    font-family: "STHupo", 微软雅黑;
+
+}
+
+#tables {
+    background-color: white;
+}
+
+/*标题盒子*/
+div[name="time"] {
+    /* border: 1px red solid;*/
+    display: flex;
+    align-items: center;
+}
+
+/* 标题*/
+div[name="title"] {
+    height: 50px;
+}
+li {
+    line-height: 50px; /*行高*/
+    /* border-bottom: 1px black solid;*/
+    list-style: none; /*去除黑点*/
+    display: flex;
+    justify-content: center;
+}
+
+a:hover {
+    text-decoration: none; /*去除a标签下划线*/
+}
+
+li a {
+    font-family: "STZhongsong", 微软雅黑;
+}
+/*用户信息*/
+#userInfo {
+    border-radius: 5px;
+}
+
+td, th {
+    text-align: center;
+    line-height: 35px;
+
+}
+
+th {
+    border-right: 1px black solid;
+}
+
+tr {
+    border: 1px black solid;
+}
+/*跳转框*/
+input[name='skipPage'] {
+    border-radius: 5px;
+}
+
+#myCenter .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

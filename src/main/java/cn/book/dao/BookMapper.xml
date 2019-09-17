@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.book.dao.BookMapper">
+    <select id="getBookByConditionsAndPaging" resultMap="books">
+        select *from `book` inner join booktype on `book`.typeId = booktype.typeId
+        <trim prefix="where" prefixOverrides="and|or">
+            bookName like concat('%',#{bookName},'%')
+            <if test="typeId!=0 and typeId!=null">
+                and book.typeId=#{typeId}
+            </if>
+            <if test="inventory!=0 and inventory!=null">
+                and inventory=0
+            </if>
+            <if test="indexPage!=null and pageSize!=null">
+                LIMIT #{indexPage},#{pageSize}
+            </if>
+        </trim>
+    </select>
+    <select id="getBookByBookId" resultMap="books">
+         select *from `book` inner join booktype on `book`.typeId = booktype.typeId where bookId=#{bookId}
+    </select>
+
+    <select id="getBookByBookName" resultType="book">
+        select *from `book` where bookName=#{bookName}
+    </select>
+
+    <insert id="addBook" parameterType="book">
+        insert into `book` values(null,#{bookName},#{bookPrice},#{bookAuthor},#{bookIssue},
+        #{bookDate},#{typeId.typeId},#{bookPortrait},#{inventory},#{bookLocation});
+    </insert>
+
+    <update id="updateBookByBookId" parameterType="book">
+        update `book` set bookName=#{bookName},bookPrice=#{bookPrice},bookAuthor=#{bookAuthor},
+        bookIssue=#{bookIssue},bookDate=#{bookDate},typeId=#{typeId.typeId},bookPortrait=#{bookPortrait},
+        inventory=#{inventory},bookLocation=#{bookLocation} where bookId=#{bookId}
+    </update>
+
+    <delete id="deleteBookByBookId">
+        delete from `book` where bookId=#{bookId}
+    </delete>
+
+    <delete id="deleteBookByTypeId">
+        delete from `book` where typeId=#{typeId}
+    </delete>
+    <update id="minusInventoryByBookId" >
+        update `book` set inventory=inventory-1 where bookId=#{bookId}
+    </update>
+    <update id="inventoryInsertByBookId" >
+        update `book` set inventory=inventory+1 where bookId=#{bookId}
+    </update>
+
+    <resultMap id="books" type="book">
+        <id property="bookId" column="bookId"/>
+        <association property="typeId" javaType="bookType">
+            <id property="typeId" column="typeId"/>
+        </association>
+    </resultMap>
+
+</mapper>

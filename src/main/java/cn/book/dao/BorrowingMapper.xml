@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.book.dao.BorrowingMapper">
+    <insert id="addBorrowing">
+        insert into borrowing values(null,#{userId.userId},#{bookId.bookId},NOW(),
+                                     #{returnTime},#{remarks})
+    </insert>
+    <select id="getBorrowing" resultMap="borrowings">
+        SELECT *FROM borrowing AS b INNER JOIN `user` AS u ON u.`userId`=b.`userId` INNER JOIN book AS k ON
+        k.`bookId`=b.`bookId`
+        WHERE (u.`userName` LIKE CONCAT ('%',#{term},'%')
+        OR
+        k.`bookName` LIKE CONCAT ('%',#{term},'%'))
+        <if test="overtime!=null and overtime!=''">
+            and b.returnTime &lt; #{overtime}
+        </if>
+        <if test="indexPage!=null and pageSize!=null">
+            LIMIT #{indexPage},#{pageSize}
+        </if>
+    </select>
+
+    <select id="getBorrowingByName" resultMap="borrowings">
+        SELECT *FROM borrowing AS b INNER JOIN `user` AS u ON u.`userId`=b.`userId` INNER JOIN book AS k ON
+        k.`bookId`=b.`bookId` where u.`userName`=#{userName}
+        <if test="bookName!=null">
+             and k.`bookName` LIKE CONCAT ('%',#{bookName},'%')
+        </if>
+        <if test="overtime!=null and overtime!=''">
+             and b.returnTime &lt; #{overtime}
+        </if>
+        <if test="indexPage!=null and pageSize!=null">
+            LIMIT #{indexPage},#{pageSize}
+        </if>
+    </select>
+
+    <delete id="restoreBook">
+        delete from borrowing where borrowingId=#{borrowingId}
+    </delete>
+
+    <delete id="deleteByUserId">
+        delete from borrowing where userId=#{userId}
+    </delete>
+
+    <delete id="deleteByBookId">
+        delete from borrowing where bookId=#{bookId}
+    </delete>
+    <resultMap id="borrowings" type="borrowing">
+        <id column="borrowingId" property="borrowingId"/>
+        <association property="userId" javaType="user">
+            <id property="userId" column="userId"/>
+        </association>
+        <association property="bookId" javaType="book">
+            <id property="bookId" column="bookId"/>
+        </association>
+    </resultMap>
+</mapper>

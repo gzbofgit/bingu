@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.book.dao.UserMapper">
+    <select id="getUsrList" resultType="user">
+        select *from `user`
+    </select>
+    <select id="getUserListByUserNameAndPaging" resultType="user">
+        select *from `user` where userName like concat('%',#{userName},'%')
+        <if test="indexPage!=null and pageSize!=null">
+            LIMIT #{indexPage},#{pageSize}
+        </if>
+    </select>
+    <select id="getUserByUserName" resultType="user">
+        select *from `user` where userName=#{userName}
+    </select>
+    <insert id="addUser" parameterType="user">
+        insert into `user` values (null,#{userName},#{userPwd},#{identity},#{sex},
+        #{birthData},#{address},#{phone},#{money},#{isMember})
+    </insert>
+    <delete id="deleteUserByUserId">
+        delete from `user` where userId=#{userId}
+    </delete>
+    <update id="updateUserByUserId" parameterType="user">
+        update `user` as a set a.userName=#{userName},a.userPwd=#{userPwd},a.identity=#{identity},a.sex=#{sex},a.birthData=#{birthData},
+        a.address=#{address},a.phone=#{phone},a.money=#{money},a.isMember=#{isMember} where a.userId=#{userId}
+    </update>
+    <select id="getUserByUserId" resultType="user">
+        select *from `user` where userId=#{userId}
+    </select>
+    <update id="userUpByUserId">
+        update `user` set money=money+#{money} where userId=#{userId}
+    </update>
+    <update id="userMoneyMinusByUserId">
+        update `user` set money=money-#{money} where userId=#{userId}
+    </update>
+    <update id="openIsMemberByUserId">
+        update `user` set isMember=1 where userId=#{userId};
+    </update>
+</mapper>
