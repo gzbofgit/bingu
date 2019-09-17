@@ -47,4 +47,7 @@ public class AdminServiceImpl implements AdminService {
     public void user1(){
         System.out.println();
     }
+    public void gu(){
+
+    }
 }
