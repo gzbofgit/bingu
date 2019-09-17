@@ -43,13 +43,5 @@ public class AdminServiceImpl implements AdminService {
         } else {
             System.out.println("密码错误！hhh");
         }
-        System.out.println("这是分支");
-    }
-
-    public void user1(){
-        System.out.println();
-    }
-    public void gu(){
-
     }
 }
