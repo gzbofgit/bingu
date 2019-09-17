@@ -43,6 +43,7 @@ public class AdminServiceImpl implements AdminService {
         }
         System.out.println("这是分支");
     }
+    public void user(){
 
-
+    }
 }
